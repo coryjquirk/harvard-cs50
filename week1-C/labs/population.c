@@ -1,6 +1,12 @@
 #include <cs50.h>
 #include <stdio.h>
 
+// Determine how long it takes for a population to reach a particular size.
+// $ ./population
+// Start size: 100
+// End size: 200
+// Years: 9
+
 int main(void)
 {
     // TODO: Prompt for start size
