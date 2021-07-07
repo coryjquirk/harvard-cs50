@@ -8,3 +8,6 @@ https://cs50.harvard.edu/x/2021/
 to test for bugs and style respectively:  
 library: `#include <cs50.h>`  
 terminal commands: `check50 #cfile` / `style50 #cfile`  
+
+### credit
+all code in labs and exercises is originally written by me.
