@@ -30,7 +30,7 @@ int main(void)
                              ((digitTen * 2) % 10)) + ((((digitTwelve * 2) % 100) / 10) + ((digitTwelve * 2) % 10)) +
                              ((((digitFourteen * 2) % 100) / 10) + ((digitFourteen * 2) % 10)) +
                              ((((digitSixteen * 2) % 100) / 10) + ((digitSixteen * 2) % 10));
-    //adding the digits of those products together (NOT the products themselves
+    //adding the digits of those products together (NOT the products themselves)
     printf("Sum after doubling all digits and extracting digits from products: %i\n", sumOfDoubledDigits);
     //add that sum to the sum of the digits that weren't multiplied by 2
     //each 2nd digit starting with very last
