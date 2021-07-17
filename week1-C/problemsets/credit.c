@@ -51,6 +51,7 @@ int main(void)
     if (sumOfAll % 10 == 0)
     {
         printf("Valid card number\n");
+        //TODO: output VISA, AMEX, or MASTERCARD
     }
     else
     {
