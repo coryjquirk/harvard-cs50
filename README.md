@@ -1,6 +1,6 @@
 # harvard-cs50
-Problem sets and labs for Harvard CS50 offered through OpenCourseWare.
-Course outline: 
+Problem sets and labs for Harvard CS50 offered through OpenCourseWare.  
+Course outline:  
 https://cs50.harvard.edu/x/2021/
 
 ### week 1: C  
@@ -30,6 +30,7 @@ lab:
     * uses ASCII values to match A-Z[i] to a Scrabble letter score
     * totals letter scores for each word
     * prints winner
+    * IMPROVEMENT: verify that user-entered words are real dictionary words.
 
 ### credit
 all code in labs and problem sets is originally written by me, going off of the course's distribution code.
