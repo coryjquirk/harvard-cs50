@@ -21,16 +21,16 @@ int main(void)
 
     //OUTPUT: Grade level #
     //if <1 "Before Grade 1", >16, "Grade 16+"
-    printf("%s\n", gradedText);
     int grade = gradeString(gradedText);
+
 }
 
-int grade_string(string gradedText)
+int gradeString(string gradedText)
 {
     int letterCount = 0;
     int wordCount = 0;
     int sentenceCount = 0;
-    printf("string length: %lu\n", strlen(gradedText));
+    printf("string length: %lu characters\n", strlen(gradedText));
     for (int i = 0; i < strlen(gradedText); i++)
     {
         char character = gradedText[i];
@@ -55,6 +55,8 @@ int grade_string(string gradedText)
             wordCount++;
         }
     }
+    //test paragraph
+    //Existing computer programs that measure readability are based largely upon subroutines which estimate number of syllables, usually by counting vowels. The shortcoming in estimating syllables is that it necessitates keypunching the prose into the computer. There is no need to estimate syllables since word length in letters is a better predictor of readability than word length in syllables. Therefore, a new readability formula was computed that has for its predictors letters per 100 words and sentences per 100 words. Both predictors can be counted by an optical scanning device, and thus the formula makes it economically feasible for an organization such as the U.S. Office of Education to calibrate the readability of all textbooks for the public school system.
     printf("letter count: %i\n", letterCount);
     printf("word count: %i\n", wordCount);
     printf("sentence count: %i\n", sentenceCount);
@@ -64,5 +66,15 @@ int grade_string(string gradedText)
         //index = 0.0588 * L - 0.296 * S - 15.8
         //L: number of letters per 100 words
         //S: avg number of sentences per 100 words
-    return 0;
+
+    float S = ((letterCount / wordCount) * 100);
+    printf("S: %f\n", S);
+
+    float L = ((sentenceCount / wordCount) * 100);
+    printf("L: %f\n", L);
+
+    int grade = ((0.0588 * L) - (0.296 * S) - 15.8);
+    printf("Grade level: %i\n", grade);
+
+    return grade;
 }
