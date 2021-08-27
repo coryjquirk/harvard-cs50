@@ -2,79 +2,73 @@
 #include <cs50.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 //function prototype
-int gradeString(string gradedText);
+int gradeString(string textToGrade);
 
 int main(void)
 {
-    //INPUT: user text string
-    //prompt user
-    string gradedText = get_string("Text: ");
+    //prompts user to input text to be graded
+    string textToGrade = get_string("Text: ");
 
-    //parts of string to tesT:
-    //# of letters
-    //# of sentences
-    //ends with .!?
-    //# of words
-    //separated by spaces
+    int grade = gradeString(textToGrade);
 
-    //OUTPUT: Grade level #
-    //if <1 "Before Grade 1", >16, "Grade 16+"
-    int grade = gradeString(gradedText);
-
+    if (grade > 16)
+    {
+        printf("Grade 16+\n");
+    }
+    else if (grade < 1)
+    {
+        printf("Before Grade 1\n");
+    }
+    else
+    {
+        printf("Grade %i\n", grade);
+    }
 }
 
-int gradeString(string gradedText)
+int gradeString(string textToGrade)
 {
     int letterCount = 0;
     int wordCount = 0;
     int sentenceCount = 0;
-    printf("string length: %lu characters\n", strlen(gradedText));
-    for (int i = 0; i < strlen(gradedText); i++)
+    for (int i = 0; i < strlen(textToGrade); i++)
     {
-        char character = gradedText[i];
+        char character = textToGrade[i];
         if (isalpha(character))
         {
             //add 1 to letter count
             letterCount++;
         }
-        else if (character == ' ' && (gradedText[i-1] != '!') && (gradedText[i-1] != '.') && (gradedText[i-1] != '?'))
+        else if (character == ' ' && (textToGrade[i - 1] != '!') && (textToGrade[i - 1] != '.') && (textToGrade[i - 1] != '?'))
         {
             //add 1 to word count if there's a space that's not preceded by !?.
             wordCount++;
         }
-        else if ((character == '!'|| character == '?' || character == '.') && ((gradedText[i+1] == ' ') || ((i+1)==strlen(gradedText))))
+        else if ((character == '!' || character == '?' || character == '.') && ((textToGrade[i + 1] == ' ') || ((i + 1) == strlen(textToGrade))))
         {
             //add 1 to sentence count and word count
-                //if symbol is followed by a space
-                //OR if the symbol is the last character of the whole string.
-            //(assuming proper English grammer with no repeat punctuation (e.g. !!, ?!, ..)
+            //if symbol is followed by a space
+            //OR if the symbol is the last character of the whole string.
+            //(assuming user input has proper English grammer with no repeat punctuation (e.g. !!, ?!, ..)
             //(and assuming all punctuation is immediately preceded by the last letter of a word.)
             sentenceCount++;
             wordCount++;
         }
     }
-    //test paragraph
-    //Existing computer programs that measure readability are based largely upon subroutines which estimate number of syllables, usually by counting vowels. The shortcoming in estimating syllables is that it necessitates keypunching the prose into the computer. There is no need to estimate syllables since word length in letters is a better predictor of readability than word length in syllables. Therefore, a new readability formula was computed that has for its predictors letters per 100 words and sentences per 100 words. Both predictors can be counted by an optical scanning device, and thus the formula makes it economically feasible for an organization such as the U.S. Office of Education to calibrate the readability of all textbooks for the public school system.
-    printf("letter count: %i\n", letterCount);
-    printf("word count: %i\n", wordCount);
-    printf("sentence count: %i\n", sentenceCount);
-
-    //grade calculation
-        //Coleman-Liau index:
-        //index = 0.0588 * L - 0.296 * S - 15.8
-        //L: number of letters per 100 words
-        //S: avg number of sentences per 100 words
-
-    float S = ((letterCount / wordCount) * 100);
-    printf("S: %f\n", S);
-
-    float L = ((sentenceCount / wordCount) * 100);
-    printf("L: %f\n", L);
-
-    int grade = ((0.0588 * L) - (0.296 * S) - 15.8);
-    printf("Grade level: %i\n", grade);
+    //Validate behavior of letterCount, wordCount, sentenceCount:
+        //https://charcounter.com/en/
+    float letters = (float)letterCount;
+    float words = (float)wordCount;
+    float sentences = (float)sentenceCount;
+    //Coleman-Liau index for determining reading level:
+    //grade level = 0.0588 * L - 0.296 * S - 15.8
+        //L = number of letters per 100 words
+        //S = avg number of sentences per 100 words
+    float G = ((0.0588 * (letters / words * 100)) - (0.296 * (sentences / words * 100)) - 15.8);
+    //round() method rounds decimal to the nearest whole number.
+    int grade = round(G);
 
     return grade;
 }
