@@ -24,13 +24,16 @@ problem set:
 
 ### week 2: arrays
 lab:  
-* scrabble command line program:  
+* Scrabble command line program:  
     * prompts users for two words  
     * iterates through letters
     * uses ASCII values to match A-Z[i] to a Scrabble letter score
     * totals letter scores for each word
     * prints winner
     * IMPROVEMENT: verify that user-entered words are real dictionary words.
-
+problem set:  
+* Readability command line program
+    * takes user input & verifies the reading grade level for texts
+    * [Coleman-Lindau index](https://en.wikipedia.org/wiki/Coleman%E2%80%93Liau_index) formula
 ### credit
 all code in labs and problem sets is originally written by me, going off of the course's distribution code.
