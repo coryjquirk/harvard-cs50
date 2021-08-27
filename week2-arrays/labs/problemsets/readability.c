@@ -30,9 +30,10 @@ int main(void)
 
 int gradeString(string textToGrade)
 {
-    int letterCount = 0;
-    int wordCount = 0;
-    int sentenceCount = 0;
+    //typing these 3 as floats for the formula later on.
+    float letterCount = 0;
+    float wordCount = 0;
+    float sentenceCount = 0;
     for (int i = 0; i < strlen(textToGrade); i++)
     {
         char character = textToGrade[i];
@@ -59,14 +60,11 @@ int gradeString(string textToGrade)
     }
     //Validate behavior of letterCount, wordCount, sentenceCount:
         //https://charcounter.com/en/
-    float letters = (float)letterCount;
-    float words = (float)wordCount;
-    float sentences = (float)sentenceCount;
     //Coleman-Liau index for determining reading level:
     //grade level = 0.0588 * L - 0.296 * S - 15.8
         //L = number of letters per 100 words
         //S = avg number of sentences per 100 words
-    float G = ((0.0588 * (letters / words * 100)) - (0.296 * (sentences / words * 100)) - 15.8);
+    float G = ((0.0588 * (letterCount / wordCount * 100)) - (0.296 * (sentenceCount / wordCount * 100)) - 15.8);
     //round() method rounds decimal to the nearest whole number.
     int grade = round(G);
 
