@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include <stdlib.h>
 
 //plaintext:  HELLO
 //ciphertext: EHBBQ
@@ -26,13 +25,12 @@ int main(int argc, string argv[])
     }
     else
     {
-    //prompt user for string
+    //prompts user for plaintext string to be enciphered.
     string plaintext = get_string("plaintext to encipher: \n");
-    //ENCIPHER !@D2309D23D@#d23D2903DJ230D23D2#d@#d@#2982F209
+    //ENCIPHERING
         //CASING: upper stays upper, lower stays lower
         //NONALPHA: punctuation and spaces stay the same from plaintext->ciphertext.
     string ciphertext = encipher(plaintext);
-    //print cipher text
     printf("ciphertext: %s\n", ciphertext);
     }
 }
@@ -44,8 +42,6 @@ bool validateKey(string cipherKey)
     //YTNSHKVEFXRBAUQZCLWDMIPGJO
     //yTnShKvEfXrBaUqZcLwDmIpGj
 
-    //initial key validation:
-
     //LENGTH: must be 26 characters
     if (strlen(cipherKey) != 26)
     {
@@ -56,10 +52,7 @@ bool validateKey(string cipherKey)
         for (int i = 0; i < strlen(cipherKey); i++)
         {
             char character = cipherKey[i];
-            printf("===============================\n");
-            printf("cipherKey[i]: %c\n", cipherKey[i]);
-            printf("===============================\n");
-            //TYPE: only letters
+            //CHARACTER TYPE: only letters
             if (!isalpha(character))
             {
                 printf("Key must contain letters only.\n");
@@ -72,10 +65,8 @@ bool validateKey(string cipherKey)
                 cipherKey[i] = upperChar;
             }
             //REPETITION: no repeat characters
-            //this loop doesn't do what i want it to but it's my hunch.
             for (int j = 1 + i; j < strlen(cipherKey); j++)
             {
-                printf("cipherKey[j]: %c\n", cipherKey[j]);
                 if (character==cipherKey[j])
                 {
                     printf("No repeat characters.\n");
@@ -90,5 +81,32 @@ bool validateKey(string cipherKey)
 
 string encipher(string plaintext)
 {
+    for (int i = 0; i < strlen(plaintext); i++)
+    {
+        char letter = plaintext[i];
+        if (!isalpha(letter))
+        {
+            printf("yup that's a space.\n");
+        }
+        //switching char letter to int c
+        int c = letter;
+        int cipherIndex;
+        printf("letter: %c\n", letter);
+        printf("c: %i\n", c);
+        if (islower(letter))
+        {
+            cipherIndex = c - 97;
+        }
+        else
+        {
+            cipherIndex = c - 65;
+        }
+        printf("cipher index: %i\n", cipherIndex);
+
+        //gives us a table of 'letter A'=[0], 'letter B'=[1], etc
+        //plaintext[i] = cipherKey[i]
+        //ciphertext must come out with same casing as plaintext
+
+    }
     return "My Super Secret Code";
 }
