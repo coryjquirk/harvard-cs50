@@ -9,7 +9,8 @@
 //ciphertext: EHBBQ
 
 //function prototype
-int validateKey(string cipherKey);
+bool validateKey(string cipherKey);
+string encipher(string plaintext);
 
 //argc: number of arguments
 //argv[]: array of strings of all the command line arguments provided.
@@ -17,6 +18,7 @@ int validateKey(string cipherKey);
 int main(int argc, string argv[])
 {
     string cipherKey = argv[1];
+    bool repeatChars = false;
     bool validKey = validateKey(cipherKey);
     if (!validKey)
     {
@@ -26,17 +28,16 @@ int main(int argc, string argv[])
     {
     //prompt user for string
     string plaintext = get_string("plaintext to encipher: \n");
-
     //ENCIPHER !@D2309D23D@#d23D2903DJ230D23D2#d@#d@#2982F209
         //CASING: upper stays upper, lower stays lower
         //NONALPHA: punctuation and spaces stay the same from plaintext->ciphertext.
-
+    string ciphertext = encipher(plaintext);
     //print cipher text
-    printf("ciphertext: %s\n", "blah\n");
+    printf("ciphertext: %s\n", ciphertext);
     }
 }
 
-int validateKey(string cipherKey)
+bool validateKey(string cipherKey)
 {
     //test keys
     //ytnshkvefxrbauqzclwdmipgjo
@@ -55,32 +56,39 @@ int validateKey(string cipherKey)
         for (int i = 0; i < strlen(cipherKey); i++)
         {
             char character = cipherKey[i];
+            printf("===============================\n");
+            printf("cipherKey[i]: %c\n", cipherKey[i]);
+            printf("===============================\n");
             //TYPE: only letters
             if (!isalpha(character))
             {
                 printf("Key must contain letters only.\n");
                 break;
             }
-            else
+            else if (islower(character))
             {
-                //REPETITION: no repeat characters
-                //through length of cipherKey
-                if (islower(character))
-                {
-                    //convert all 26 char to upper
-                    char upperChar = toupper(character);
-                    cipherKey[i] = upperChar;
-                }
-                else
-                {
-                    //run through all characters
-                    //make sure cipherKey[i] value appears only once
-                    //if repeat value is found, break with error message
-                }
-                //else, continue
+                //convert all 26 char to uppercase
+                char upperChar = toupper(character);
+                cipherKey[i] = upperChar;
             }
-            printf("uppercase key: %s\n", cipherKey);
+            //REPETITION: no repeat characters
+            //this loop doesn't do what i want it to but it's my hunch.
+            for (int j = 1 + i; j < strlen(cipherKey); j++)
+            {
+                printf("cipherKey[j]: %c\n", cipherKey[j]);
+                if (character==cipherKey[j])
+                {
+                    printf("No repeat characters.\n");
+                    return false;
+                }
+            }
         }
+        printf("uppercase key: %s\n", cipherKey);
     }
-    return 1;
+    return true;
+}
+
+string encipher(string plaintext)
+{
+    return "My Super Secret Code";
 }
