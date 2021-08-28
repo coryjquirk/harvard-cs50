@@ -26,13 +26,12 @@ int main(int argc, string argv[])
     }
     else
     {
-    //prompt user for string
+    //prompt user for plaintext string to be enciphered.
     string plaintext = get_string("plaintext to encipher: \n");
     //ENCIPHER !@D2309D23D@#d23D2903DJ230D23D2#d@#d@#2982F209
         //CASING: upper stays upper, lower stays lower
         //NONALPHA: punctuation and spaces stay the same from plaintext->ciphertext.
     string ciphertext = encipher(plaintext);
-    //print cipher text
     printf("ciphertext: %s\n", ciphertext);
     }
 }
@@ -43,8 +42,6 @@ bool validateKey(string cipherKey)
     //ytnshkvefxrbauqzclwdmipgjo
     //YTNSHKVEFXRBAUQZCLWDMIPGJO
     //yTnShKvEfXrBaUqZcLwDmIpGj
-
-    //initial key validation:
 
     //LENGTH: must be 26 characters
     if (strlen(cipherKey) != 26)
@@ -72,7 +69,6 @@ bool validateKey(string cipherKey)
                 cipherKey[i] = upperChar;
             }
             //REPETITION: no repeat characters
-            //this loop doesn't do what i want it to but it's my hunch.
             for (int j = 1 + i; j < strlen(cipherKey); j++)
             {
                 printf("cipherKey[j]: %c\n", cipherKey[j]);
