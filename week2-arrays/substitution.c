@@ -5,59 +5,55 @@
 #include <string.h>
 #include <math.h>
 
-//plaintext:  HELLO
-//ciphertext: EHBBQ
+//test keys
+    //vchprzgjntlskfbdqwaxeuymoi
+    //VCHPRZGJNTLSKFBDQWAXEUYMOI
+    //VcHpRzGjNtLsKfBdQwAxEuYmOi
 
-//function prototype
 bool validateKey(string cipherKey);
 string encipher(string plaintext, string cipherKey);
+char ciphertext[] = {'\0'};
 
-//argc: number of arguments
-//argv[]: array of strings of all the command line arguments provided.
-    //argv[0] is ./substition, argv[1] is the cipherkey.
 int main(int argc, string argv[])
 {
     string cipherKey = argv[1];
     if (argv[1]==NULL)
     {
-    printf("Usage: ./substitution *key*\n");
+        printf("Usage: ./substitution *key*\n");
     }
     bool repeatChars = false;
     bool validKey = validateKey(cipherKey);
     if (!validKey)
     {
-    printf("Usage: ./substitution *key*\n");
+        printf("Usage: ./substitution *key*\n");
     }
     else
     {
-    for (int i = 0; i < strlen(cipherKey); i++)
-    {
-        char character = cipherKey[i];
-        if (islower(character))
+        for (int i = 0; i < strlen(cipherKey); i++)
+        {
+            char character = cipherKey[i];
+            if (islower(character))
             {
                 //convert all 26 char to uppercase
                 char upperChar = toupper(character);
                 cipherKey[i] = upperChar;
             }
-    }
-    //prompts user for plaintext string to be enciphered.
-    string plaintext = get_string("plaintext to encipher: \n");
-    //ENCIPHERING
-        //CASING: upper stays upper, lower stays lower
-        //NONALPHA: punctuation and spaces stay the same from plaintext->ciphertext.
-    string ciphertext = encipher(plaintext, cipherKey);
-    printf("ciphertext: %s\n", ciphertext);
+        }
+        string plaintext = get_string("plaintext to encipher (24 char max): \n");
+        if (strlen(plaintext)>24)
+        {
+            printf("Sorry, for now plaintext must be 24 characters or less.\n");
+        }
+        else
+        {
+            string final = encipher(plaintext, cipherKey);
+            printf("ciphertext: %s\n", final);
+        }
     }
 }
 
 bool validateKey(string cipherKey)
 {
-    //test keys
-    //vchprzgjntlskfbdqwaxeuymoi
-    //VCHPRZGJNTLSKFBDQWAXEUYMOI
-    //VcHpRzGjNtLsKfBdQwAxEuYmOi
-
-    //LENGTH: must be 26 characters
     if (strlen(cipherKey) != 26)
     {
     printf("Key must contain 26 characters.\n");
@@ -67,14 +63,12 @@ bool validateKey(string cipherKey)
         for (int i = 0; i < strlen(cipherKey); i++)
         {
             char character = cipherKey[i];
-            //CHARACTER TYPE: only letters
             if (!isalpha(character))
             {
                 printf("Key must contain letters only.\n");
                 break;
             }
             else
-            //REPETITION: no repeat characters
             for (int j = 1 + i; j < strlen(cipherKey); j++)
             {
                 if (character==cipherKey[j])
@@ -84,7 +78,6 @@ bool validateKey(string cipherKey)
                 }
             }
         }
-        printf("raw key: %s\n", cipherKey);
     }
     return true;
 }
@@ -92,53 +85,57 @@ bool validateKey(string cipherKey)
 string encipher(string plaintext, string cipherKey)
 {
     int cipherCode[strlen(plaintext)];
-
-    char caselessStr[] = {'\0'};
-
     for (int i = 0; i < strlen(plaintext); i++)
     {
-        printf("-------------------------------\n");
         char letter = plaintext[i];
         if (!isalpha(letter))
         {
-            printf("not a letter.\n");
-            //somehow store the value and position of the character for later insertion into final ciphertext?
-            printf("-------------------------------\n");
-        }
-        //switching char letter to int c
-        int c = letter;
-        int cipherIndex;
-        printf("letter: %c\n", c);
-        printf("ASCII val: %i\n", c);
-        if (islower(c))
-        {
-            cipherIndex = c - 97;
+            int c = letter;
+            //ASCII val of symbol/num/space:
+            cipherCode[i] = c;
         }
         else
         {
-            cipherIndex = c - 65;
+            //gives letter ASCII int value:
+            int c = letter;
+            //brings down ASCII val to usable ABC index:
+            int cipherIndex;
+            if (islower(c))
+            {
+                cipherIndex = c - 97;
+            }
+            else
+            {
+                cipherIndex = c - 65;
+            }
+            cipherCode[i] = cipherIndex;
         }
-        printf("alpha index: %i\n", cipherIndex);
-        cipherCode[i] = cipherIndex;
-
     }
-    printf("================================\n");
-
-    printf("cipherCode: \n");
-
-    for (int i = 0; i < strlen(plaintext); ++i)
+    for (int j = 0; j < strlen(plaintext); ++j)
     {
-    int alphaIndex = cipherCode[i];
-    char newChar = cipherKey[alphaIndex];
-    printf("newChar: %c\n", newChar);
-    printf("alphaIndex: %i\n", alphaIndex);
-    //TODO: make exception for symbols to come through unciphered.
-    strcat(caselessStr, &newChar);
-    printf("caselessStr: %s\n", caselessStr);
-    printf("-------------------------------\n");
+        //matches cipher letter's place to its original place in plaintext:
+        int alphaIndex = cipherCode[j];
+        if (isalpha(plaintext[j]))
+        {
+            char newChar = cipherKey[alphaIndex];
+            //CASE retained from plaintext -> ciphertext
+            if (isupper(plaintext[j]))
+            {
+                char upperChar = toupper(newChar);
+                strncat(ciphertext, &upperChar, 1);
+            }
+            else if (islower(plaintext[j]))
+            {
+                char lowerChar = tolower(newChar);
+                strncat(ciphertext, &lowerChar, 1);
+            }
+        }
+        else
+        {
+            //for non-alpha chars, newChar uses same char from plaintext[j]
+            char newChar = plaintext[j];
+            strncat(ciphertext, &newChar, 1);
+        }
     }
-    printf("final caselessStr: %s\n", caselessStr);
-
-    //ciphertext must eventually come out with same casing as user-submitted plaintext
-    return "My Enciphered Message";
+    return ciphertext;
 }
