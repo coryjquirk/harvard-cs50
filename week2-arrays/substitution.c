@@ -93,7 +93,7 @@ string encipher(string plaintext, string cipherKey)
 {
     int cipherCode[strlen(plaintext)];
 
-
+    char caselessStr[] = {'\0'};
 
     for (int i = 0; i < strlen(plaintext); i++)
     {
@@ -101,7 +101,8 @@ string encipher(string plaintext, string cipherKey)
         char letter = plaintext[i];
         if (!isalpha(letter))
         {
-            printf("yup that's a space.\n");
+            printf("not a letter.\n");
+            //somehow store the value and position of the character for later insertion into final ciphertext?
             printf("-------------------------------\n");
         }
         //switching char letter to int c
@@ -119,6 +120,7 @@ string encipher(string plaintext, string cipherKey)
         }
         printf("alpha index: %i\n", cipherIndex);
         cipherCode[i] = cipherIndex;
+
     }
     printf("================================\n");
 
@@ -126,19 +128,17 @@ string encipher(string plaintext, string cipherKey)
 
     for (int i = 0; i < strlen(plaintext); ++i)
     {
-    printf("cipherCode[i]: %i", cipherCode[i]);
-    printf("\n");
     int alphaIndex = cipherCode[i];
     char newChar = cipherKey[alphaIndex];
     printf("newChar: %c\n", newChar);
     printf("alphaIndex: %i\n", alphaIndex);
-
-
-    //TODO: build new string out of newChars.
-
+    //TODO: make exception for symbols to come through unciphered.
+    strcat(caselessStr, &newChar);
+    printf("caselessStr: %s\n", caselessStr);
     printf("-------------------------------\n");
     }
+    printf("final caselessStr: %s\n", caselessStr);
 
-    //ciphertext must eventually come out with same casing as plaintext
+    //ciphertext must eventually come out with same casing as user-submitted plaintext
     return "My Enciphered Message";
 }
