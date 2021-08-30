@@ -30,10 +30,19 @@ lab:
     * uses ASCII values to match A-Z[i] to a Scrabble letter score
     * totals letter scores for each word
     * prints winner
-    * IMPROVEMENT: verify that user-entered words are real dictionary words.
+    * IMPROVEMENT: verify that user-entered words are real dictionary words.  
+    
 problem set:  
 * Readability command line program
     * takes user input & verifies the reading grade level for texts
     * [Coleman-Lindau index](https://en.wikipedia.org/wiki/Coleman%E2%80%93Liau_index) formula
+* Substituition comman line program
+    * prompts user for scrambled alphabet cipherkey (no repeat letters, 26char only letters)
+        * example keys: *vchprzgjntlskfbdqwaxeuymoi*, *VCHPRZGJNTLSKFBDQWAXEUYMOI*, *VcHpRzGjNtLsKfBdQwAxEuYmOi*
+    * changes user-input plaintext to ciphertext
+        * retains user casing and symbol/space/number placement
+            * e.g. hELL0, W0RLd! -> jRSS0, Y0WSp!
+    * usage: `./substitution *key*`
+    * IMPROVEMENT: currently can only handle plaintext up to 24 characters long 
 ### credit
 all code in labs and problem sets is originally written by me, going off of the course's distribution code.
