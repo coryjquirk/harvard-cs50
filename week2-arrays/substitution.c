@@ -17,6 +17,10 @@ string encipher(string plaintext);
 int main(int argc, string argv[])
 {
     string cipherKey = argv[1];
+    if (argv[1]==NULL)
+    {
+    printf("Usage: ./substitution key\n");
+    }
     bool repeatChars = false;
     bool validKey = validateKey(cipherKey);
     if (!validKey)
@@ -81,6 +85,7 @@ bool validateKey(string cipherKey)
 
 string encipher(string plaintext)
 {
+    int cipherCode[strlen(plaintext)];
     for (int i = 0; i < strlen(plaintext); i++)
     {
         char letter = plaintext[i];
@@ -91,9 +96,9 @@ string encipher(string plaintext)
         //switching char letter to int c
         int c = letter;
         int cipherIndex;
-        printf("letter: %c\n", letter);
-        printf("c: %i\n", c);
-        if (islower(letter))
+        printf("letter: %c\n", c);
+        printf("ASCII val: %i\n", c);
+        if (islower(c))
         {
             cipherIndex = c - 97;
         }
@@ -102,11 +107,15 @@ string encipher(string plaintext)
             cipherIndex = c - 65;
         }
         printf("cipher index: %i\n", cipherIndex);
-
+        cipherCode[i] = cipherIndex;
         //gives us a table of 'letter A'=[0], 'letter B'=[1], etc
         //plaintext[i] = cipherKey[i]
         //ciphertext must come out with same casing as plaintext
-
+    }
+    printf("cipherCode: \n");
+    for (int i = 0; i < strlen(plaintext); ++i)
+    {    printf("%i", cipherCode[i]);
+            printf("\n");
     }
     return "My Super Secret Code";
 }
