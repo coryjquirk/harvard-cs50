@@ -1,0 +1,224 @@
+sort1 uses: BUBBLE
+
+How do you know?: Particularily slow on reversed list.
+
+sort2 uses: MERGE
+
+How do you know?: The fastest on random sets.
+
+sort3 uses: SELECTION
+
+How do you know?: Comparable to sort1, but faster on reversed lists.
+========================
+HOW TO READ TIME OUTPUT:
+https://stackoverflow.com/questions/10265162/the-meaning-of-real-user-and-sys-in-output-of-linux-time-command
+user: how long program runs on CPU
+sys: how long program waited for OS to perform tasks
+real: can be affected by other running processes, more inconsistent.
+
+user + sys is best measure.
+=======================
+OPTIONS:
+merge
+-fastest of the 3 on large sets
+
+selection
+-performs well on small lists
+-performs poorly on large lists
+-O(n^2)
+-i think, might be slow on already-sorted lists
+
+bubble
+-performs poorly on large lists
+-O(n^2)
+-slow on reversed list because it has to compare largest item in position 1 to the entire list for each item.
+-loop continues to run even if array is sorted if the code is not optimised
+
+OBSERVATIONS:
+sort1
+-random: greatly increases
+-reversed: increases a bit (most)
+-already-sorted: increases a little
+BUBBLE since slow on reversed?
+
+sort2
+-random: increases a little
+-reversed: increases a little (more) 
+-already-sorted: increases a little. fastest on sorted of the 3 methods
+MERGE SORT since fastest on random?
+
+sort3
+-random: increases with size (less than sort1)
+-reversed: increases a bit with size (comprable to sort3 random)
+-already-sorted: increases a little
+------------------------------------------------------------------
+TEST TIMES:
+
+******SORT1*******
+random5000
+real    0m0.107s
+user    0m0.051s
+sys     0m0.008s
+TIME: 0.059s
+
+random10000
+real    0m0.610s
+user    0m0.266s
+sys     0m0.016s
+TIME: 0.282s
+
+random50000
+real    0m16.217s
+user    0m6.513s
+sys     0m0.116s
+TIME: 6.629s
+
+reversed5000
+real    0m0.088s
+user    0m0.046s
+sys     0m0.009s
+TIME: 0.055s
+
+reversed10000
+real    0m0.503s
+user    0m0.189s
+sys     0m0.028s
+TIME: 0.217
+
+reversed50000
+real    0m11.969s
+user    0m4.791s
+sys     0m0.088s
+TIME: 4.879s
+
+sorted5000
+real    0m0.015s
+user    0m0.000s
+sys     0m0.013s
+TIME: 0.013s
+
+sorted10000
+real    0m0.103s
+user    0m0.004s
+sys     0m0.020s
+TIME: 0.024s
+
+sorted50000
+real    0m1.717s
+user    0m0.029s
+sys     0m0.087s
+TIME: 0.116s
+
+///////////
+
+*****SORT2******
+random5000
+real    0m0.016s
+user    0m0.000s
+sys     0m0.014s
+TIME: 0.014s
+
+random10000
+real    0m0.102s
+user    0m0.007s
+sys     0m0.014s
+TIME: 0.021s
+
+random50000
+real    0m2.196s
+user    0m0.042s
+sys     0m0.079s
+TIME: 0.121s
+
+reversed5000
+real    0m0.066s
+user    0m0.000s
+sys     0m0.018s
+TIME: 0.018s
+
+reversed10000
+real    0m1.023s
+user    0m0.012s
+sys     0m0.012s
+TIME: 0.024s
+
+reversed50000
+real    0m2.864s
+user    0m0.036s
+sys     0m0.072s
+TIME: 0.108s
+
+sorted5000
+real    0m0.015s
+user    0m0.010s
+sys     0m0.005s
+TIME: 0.015s
+
+sorted10000
+real    0m0.022s
+user    0m0.000s
+sys     0m0.022s
+TIME: 0.022S
+
+sorted50000
+real    0m4.459s
+user    0m0.047s
+sys     0m0.089s
+TIME: 0.136s
+
+/////////
+
+*****SORT3*******
+random5000
+real    0m0.106s
+user    0m0.047s
+sys     0m0.016s
+TIME: 0.063s
+
+random10000
+real    0m0.238s
+user    0m0.110s
+sys     0m0.008s
+TIME: 0.118s
+
+random50000
+real    0m8.455s
+user    0m2.474s
+sys     0m0.084s
+TIME: 2.558s
+
+reversed5000
+real    0m0.034s
+user    0m0.026s
+sys     0m0.009s
+TIME: 0.025s
+
+reversed10000
+real    0m0.260s
+user    0m0.108s
+sys     0m0.020s
+TIME: 0.128s
+
+reversed50000
+real    0m8.435s
+user    0m2.504s
+sys     0m0.100s
+TIME: 2.604s
+
+sorted5000
+real    0m0.035s
+user    0m0.031s
+sys     0m0.004s
+TIME: 0.035s
+
+sorted10000
+real    0m0.184s
+user    0m0.108s
+sys     0m0.012s
+TIME: 0.120s
+
+sorted50000
+real    0m11.617s
+user    0m3.250s
+sys     0m0.119s
+TIME: 3.369s
